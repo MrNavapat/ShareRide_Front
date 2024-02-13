@@ -8,13 +8,16 @@ export default function Input({ type = 'text', placeholder, value, onChange, nam
         return (
         
                 <>
-        <input type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        name={name}
-        className={`${defaultClasses} ${extendedClasses}`} />
-        {errorMessage ? <small className="text-red-500">{errorMessage}</small> : null}
+        <div className="flex flex-col mt-2">
+                <div>{placeholder}</div>
+                <input type={type}
+                placeholder={placeholder}
+                value={value}
+                onChange={onChange}
+                name={name}
+                className={`${defaultClasses} ${extendedClasses}`} />
+                {errorMessage ? <small className="text-red-500">{errorMessage}</small> : null}
+        </div>
         </>
 )
 }
