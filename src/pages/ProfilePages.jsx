@@ -1,13 +1,13 @@
 import React from "react";
-import HeroPic from "../../asset/forPage/Hero3.jpg";
+import HeroPic from "../../asset/forPage/Hero2.jpg";
 import Modal from "../Component/Modal";
 import { useState } from "react";
-import RegisterContainer from "../Component/RegisterContainer";
-import LoginContainer from "../Component/LoginContainer"
+// import RegisterContainer from "../Component/RegisterContainer";
+// import LoginContainer from "../Component/LoginContainer"
 import TripContainer from "../Component/TripContainer";
 import useAuth from "../hooks/user-auth"
 
-function HomePages() {
+function ProfilePages() {
   const [registerStatus, setRegisterStatus] = useState(false);
   const [loginStatus, setLoginStatus] = useState(false);
   const [createTripStatus,setCreateTripStatus]=useState(false)
@@ -81,28 +81,16 @@ function HomePages() {
             ,manage your trip ,see trip member whether to join , also create
             your own trip ,select member to join
           </div>
-          <button className="font-bold bg-white text-black rounded-full px-4 py-2 my-4 text-right hover:bg-none tex-white-400">
+          <button className="font-bold bg-white text-black rounded-full px-4 py-2 my-4 text-right hover:bg-none tex-white-400" onClick={handleCreateTrip}>
             Create Trip
           </button>
         </div>
       </div>
 
-      {registerStatus ? (
-              <Modal title="Register" onClose={closeRegister} width={32} >
-                  <RegisterContainer onClose={closeRegister} />
-            </Modal>
-      ) : null}
-
-      {loginStatus ? (
-              <Modal title="Login" onClose={closeLogin} width={24} >
-          <LoginContainer onClose={closeLogin} />
-            </Modal>
-      ) : null}
-
-      
+         
     {createTripStatus ? (
-              <Modal title="Create Trip" onClose={closeTrip} width={24} >
-          <TripContainer onClose={closeTrip} />
+              <Modal title="Create Trip" onClose={closeCreateTrip} width={24} >
+             <TripContainer onClose={closeCreateTrip} />
             </Modal>
       ) : null}
 
@@ -116,4 +104,4 @@ function HomePages() {
   );
 }
 
-export default HomePages;
+export default ProfilePages;

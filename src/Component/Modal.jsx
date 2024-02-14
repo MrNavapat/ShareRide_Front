@@ -1,6 +1,6 @@
 import RegisterContainer from "./RegisterContainer";
 
-export default function Modal({ title, onClose, width }) {
+export default function Modal({ title, onClose, width,children }) {
   return (
     <>  
       {/* create thin file to blur behind background */}
@@ -17,8 +17,7 @@ export default function Modal({ title, onClose, width }) {
               <h5 className="text-2xl font-semibold">{title}</h5>
               <button onClick={onClose}>&#10005;</button>
             </div>
-            <RegisterContainer/>
-          
+          {children}
 
           </div>
         </div>
