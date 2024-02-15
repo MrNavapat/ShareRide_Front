@@ -16,8 +16,8 @@ export default function Input({ type = 'text', placeholder, value, onChange, nam
                 onChange={onChange}
                 name={name}
                 className={`${defaultClasses} ${extendedClasses}`} />
-                {errorMessage ? <small className="text-red-500">{errorMessage}</small> : null}
-        </div>
+                                {errorMessage ? <small className="text-red-500">{errorMessage}</small> : null}
+                        </div>
         </>
 )
 }
