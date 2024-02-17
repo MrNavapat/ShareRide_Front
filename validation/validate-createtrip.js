@@ -23,7 +23,9 @@ const tripSchema = Joi.object({
     startLoc: Joi.string().required().trim().messages({ 'string.empty': 'Start Location is required' }),
     endLoc: Joi.string().invalid(Joi.ref('startLoc')).required(),
     startDate: Joi.date().required().custom(customValidatorOneWeek,"custom validate"),
-    endDate:Joi.date().min(Joi.ref('startDate')).required()
+  endDate: Joi.date().min(Joi.ref('startDate')).required(),
+  tripMember:Joi.number().required()
+
 
 })
 

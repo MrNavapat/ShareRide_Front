@@ -33,7 +33,11 @@ export default function LoginContainer({onClose}) {
 
     
   return (
-    <form onSubmit={handleSubmitForm}>
+
+
+
+  <form onSubmit={handleSubmitForm}>  
+
         <div>
             <Input
               placeholder="Username"
@@ -49,7 +53,7 @@ export default function LoginContainer({onClose}) {
               name="password"
               onChange={handleChange}
               errorMessage={error?.password}
-                  ></Input>
+              ></Input>
                   
               <div className="flex flex-col items-center py-4">
               <button className="bg-red-500 px-8 py-2 rounded-full mt-2">Login</button>
@@ -57,6 +61,9 @@ export default function LoginContainer({onClose}) {
 
       </div>
       
-    </form>
+        </form>
+       
+
+
   );
 }

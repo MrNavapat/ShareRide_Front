@@ -10,7 +10,6 @@ import useAuth from "../hooks/user-auth"
 function HomePages() {
   const [registerStatus, setRegisterStatus] = useState(false);
   const [loginStatus, setLoginStatus] = useState(false);
-  const [createTripStatus,setCreateTripStatus]=useState(false)
   const { authUser } = useAuth()
   
 
@@ -31,13 +30,7 @@ function HomePages() {
     setLoginStatus(false);
   }
 
-  const handleCreateTrip = () => {
-    setCreateTripStatus(!createTripStatus);
-    };
   
-  const closeCreateTrip = () => {
-    setCreateTripStatus(false);
-  };
 
   return (
     <>
@@ -47,14 +40,14 @@ function HomePages() {
           Share Ride
         </div>
         {authUser ? null :
-          <button className="absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " onClick={handleLogin}>
+          <button className="btn glass opacity-60 absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " onClick={handleLogin}>
             Login
           </button>
         }
 
         {authUser ? null :
           <button
-            className="absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600"
+            className="btn glass opacity-60 absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600"
             onClick={handleRegister}
           >
             Register
@@ -62,14 +55,7 @@ function HomePages() {
         }
     
 
-        {authUser?  <div
-            className="absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600">                   
-            {authUser.userName}
-        </div> : null}
-        
-        {authUser?<button className="absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " onClick={handleLogin}>
-            Logout
-          </button>:null}
+      
         
 
         <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
@@ -99,17 +85,7 @@ function HomePages() {
             </Modal>
       ) : null}
 
-      
-    {createTripStatus ? (
-              <Modal title="Create Trip" onClose={closeTrip} width={24} >
-          <TripContainer onClose={closeTrip} />
-            </Modal>
-      ) : null}
 
-    
-      
-    
-    
 
 
     </>

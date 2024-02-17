@@ -4,6 +4,7 @@ import HomePages from "./pages/HomePages"
 import AuthContextProvider from './Context/AuthContext'
 import Router from '../routes'
 import { ToastContainer ,Slide} from 'react-toastify'
+import TestPages from './pages/TestPages'
 
 
 function App() {
@@ -11,7 +12,9 @@ function App() {
 
   return (
     <>
+      {/* <TestPages/> */}
       {/* <HomePages /> */}
+  
       <Router />
       <ToastContainer
         position="bottom-right"

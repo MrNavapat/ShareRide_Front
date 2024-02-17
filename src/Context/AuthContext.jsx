@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import { createContext, useContext } from 'react'
-import { Apiregister,Apilogin, ApicreateTrip } from '../api/auth';
+import { Apiregister, Apilogin } from '../api/auth';
+import {ApicreateTrip} from '../api/trip'
 import { storeToken } from '../utils/local-storage';
 
 
@@ -29,7 +30,6 @@ export default function AuthContextProvider({ children }) {
 }
 
   const createTrip = async data => {
-  console.log(data)
   const res=await ApicreateTrip(data)
     
 }

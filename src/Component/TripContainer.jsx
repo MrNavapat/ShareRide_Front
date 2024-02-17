@@ -32,7 +32,7 @@ export default function TripContainer({onClose}) {
         formData.append("endDate",dayjs(input.endDate).toISOString())
         formData.append("startLoc",input.startLoc)
         formData.append("endLoc", input.endLoc)
-        formData.append("tripMember",4)
+        formData.append("tripMember",input.tripMember)
         formData.append("requestorId",authUser.id)
         createTrip(formData)
         onClose()
@@ -78,6 +78,14 @@ export default function TripContainer({onClose}) {
           name="endDate"
           onChange={handleChange}
           errorMessage={error?.endDate}
+        ></Input>
+
+        <Input
+          placeholder="Trip Member"
+          value={input?.tripMember}
+          name="tripMember"
+          onChange={handleChange}
+          errorMessage={error?.tripMember}
         ></Input>
 
         <Uploadpic setTripPic={setTripPic} />

@@ -1,24 +1,38 @@
 import React from "react";
 import HeroPic from "../../asset/forPage/Hero2.jpg";
 import Modal from "../Component/Modal";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 
 import TripContainer from "../Component/TripContainer";
 import useAuth from "../hooks/user-auth"
+import ShareRideSlogan from "../Component/ShareRideSlogan";
+import { ApigetTrip } from "../api/trip";
 
 function ProfilePages() {
 
-  const [createTripStatus,setCreateTripStatus]=useState(false)
+  const [createTripStatus, setCreateTripStatus] = useState(false)
   const { authUser } = useAuth()
+  const [trip, setTrip] = useState(null)
   
 
   const handleCreateTrip = () => {
     setCreateTripStatus(!createTripStatus);
-    };
+  };
   
   const closeCreateTrip = () => {
     setCreateTripStatus(false);
   };
+
+  useEffect(
+     () => {
+      alert("effect is running")
+      ApigetTrip().then(res => setTrip(res.data.tripResult)).catch(err => console.log(err))
+    },
+    [])
+  
+  console.log(trip)
+  
+
 
   return (
     <>
@@ -29,36 +43,40 @@ function ProfilePages() {
         </div>
      
 
-        {authUser?  <div
-            className="absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600">                   
-            {authUser.userName}
+        {authUser ? <div
+          className="absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600">
+          {authUser.userName}
         </div> : null}
         
-        {authUser?<button className="absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " >
-            Logout
-          </button>:null}
+        {authUser ? <button className="absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " >
+          Logout
+        </button> : null}
         
 
         <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
-          <div className="font-semibold my-4 text-3xl">Share Ride</div>
-          <div className="my-4">
-       
-            Shareride ,oppertunity to explore world with new friend ,new kind of
-            social car pooling ,travelling with economic cost with correct plan
-            ,manage your trip ,see trip member whether to join , also create
-            your own trip ,select member to join
-          </div>
+          <ShareRideSlogan />
           <button className="font-bold bg-white text-black rounded-full px-4 py-2 my-4 text-right hover:bg-none tex-white-400" onClick={handleCreateTrip}>
             Create Trip
           </button>
         </div>
       </div>
 
+      {trip ? trip.map(el => {
+        return (
+          <>
+            <h1>{el.startLoc}</h1>
+            <h1>{el.endLoc}</h1>
+            </>
+        )
+      }) : null}
          
-    {createTripStatus ? (
-            <Modal title="Create Trip" onClose={closeCreateTrip} width={24} >
-             <TripContainer onClose={closeCreateTrip} />
-            </Modal>
+    
+      
+      
+      {createTripStatus ? (
+        <Modal title="Create Trip" onClose={closeCreateTrip} width={24} >
+          <TripContainer onClose={closeCreateTrip} />
+        </Modal>
       ) : null}
 
     
@@ -69,6 +87,6 @@ function ProfilePages() {
 
     </>
   );
-}
 
+}
 export default ProfilePages;
