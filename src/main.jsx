@@ -7,13 +7,11 @@ import ProfileContextProvider from './Context/ProfileContext.jsx'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
+  <React.StrictMode>
 
-  <AuthContextProvider>
-    
-    <App />
-
+  <AuthContextProvider>    
+      <App />
   </AuthContextProvider>
     
-  // </React.StrictMode>,
+ </React.StrictMode>
 )

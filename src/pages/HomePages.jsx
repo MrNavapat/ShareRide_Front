@@ -1,17 +1,21 @@
 import React from "react";
 import HeroPic from "../../asset/forPage/Hero3.jpg";
 import Modal from "../Component/Modal";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import RegisterContainer from "../Component/RegisterContainer";
 import LoginContainer from "../Component/LoginContainer"
-import TripContainer from "../Component/TripContainer";
 import useAuth from "../hooks/user-auth"
+import ShareRideSlogan from "../Component/ShareRideSlogan";
+import TripCard from "../Component/TripCard";
+import dayjs from "dayjs";
 
 function HomePages() {
   const [registerStatus, setRegisterStatus] = useState(false);
   const [loginStatus, setLoginStatus] = useState(false);
+  const { displayTrip, upComingPage,setUpComingPage } = useAuth()
   const { authUser } = useAuth()
-  
+
+       
 
 
   const handleRegister = () => {
@@ -30,61 +34,69 @@ function HomePages() {
     setLoginStatus(false);
   }
 
+  const handleClickBack = () => {
+    if (upComingPage > 0) { setUpComingPage(prv => prv - 1) }
+
+  }
   
+  const handleClickForward = () => {
+    setUpComingPage(prv => prv + 1)
+
+  }
+
+    
 
   return (
     <>
       <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative bg-red-400">
         <img src={HeroPic} />
+
         <div className="absolute top-20 start-0 left-28 text-white text-4xl hover:font-bold ">
           Share Ride
         </div>
-        {authUser ? null :
-          <button className="btn glass opacity-60 absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold " onClick={handleLogin}>
-            Login
-          </button>
-        }
-
-        {authUser ? null :
-          <button
-            className="btn glass opacity-60 absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600"
-            onClick={handleRegister}
-          >
-            Register
-          </button>
-        }
     
-
-      
+        <button className="btn glass opacity-60 absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold "
+          onClick={handleLogin}>
+          Login
+        </button>
         
+        <button
+            className="btn glass opacity-60 absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600"
+            onClick={handleRegister}>
+            Register
+        </button>
+
+        {registerStatus ? (
+              <Modal title="Register" onClose={closeRegister} width={32} >
+              <RegisterContainer onClose={closeRegister} />
+              </Modal>
+      ) : null}
+
+        {loginStatus ? (
+              <Modal title="Login" onClose={closeLogin} width={24} >
+              <LoginContainer onClose={closeLogin} />
+              </Modal>
+      ) : null}
 
         <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
-          <div className="font-semibold my-4 text-3xl">Share Ride</div>
-          <div className="my-4">
-       
-            Shareride ,oppertunity to explore world with new friend ,new kind of
-            social car pooling ,travelling with economic cost with correct plan
-            ,manage your trip ,see trip member whether to join , also create
-            your own trip ,select member to join
-          </div>
-          <button className="font-bold bg-white text-black rounded-full px-4 py-2 my-4 text-right hover:bg-none tex-white-400">
-            Create Trip
-          </button>
+              <ShareRideSlogan/>
         </div>
       </div>
 
-      {registerStatus ? (
-              <Modal title="Register" onClose={closeRegister} width={32} >
-                  <RegisterContainer onClose={closeRegister} />
-            </Modal>
-      ) : null}
-
-      {loginStatus ? (
-              <Modal title="Login" onClose={closeLogin} width={24} >
-          <LoginContainer onClose={closeLogin} />
-            </Modal>
-      ) : null}
-
+      <div className="flex justify-between mx-auto w-5/6 p-10">
+      <div >Upcoming Trip</div>
+      <div className="join bg-green-400">
+          <button className="join-item btn" onClick={handleClickBack}>«</button>
+          <button className="join-item btn">Page {upComingPage + 1}</button>
+          <button className="join-item btn" onClick={handleClickForward}>»</button>
+      </div>
+</div>
+      <div className="mx-auto w-5/6 p-10">
+      <div className="grid grid-cols-3 justify-items-center gap-10">
+                {displayTrip ? displayTrip.map(el => <TripCard src={el.tripPicture} buttonMessage="Join Now" startLoc={el.startLoc} endLoc={el.endLoc} startDate={dayjs(el.startDate).format('DD-MMM-YYYY')} />):null}
+     
+        </div>
+        </div>
 
 
 
