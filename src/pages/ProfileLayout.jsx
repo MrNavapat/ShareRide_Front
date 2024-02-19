@@ -5,24 +5,21 @@ import { useState,useEffect } from "react";
 import TripContainer from "../Component/TripContainer";
 import useAuth from "../hooks/user-auth"
 import ShareRideSlogan from "../Component/ShareRideSlogan";
-import { ApigetTripbyUser } from "../api/trip";
+// import { ApigetTripbyUser } from "../api/trip";
+import { ApiJoinTripbyUser } from "../api/trip";
 import useProfile from "../hooks/trip-auth";
 import TripCard from "../Component/TripCard";
-import dayjs from "dayjs";
+// import dayjs from "dayjs";
 import { clearToken } from "../utils/local-storage";
+import TripDisplay from "../Component/TripDisplay";
 
 function ProfileLayout() {
 
   const [createTripStatus, setCreateTripStatus] = useState(false)
   const { authUser,setAuthUser } = useAuth()
-  const {confirmTrip,pendingTrip,upComingPage,setUpComingPage}=useProfile()
+  const {confirmTrip,pendingTrip,upComingTrip,upComingPage,setUpComingPage}=useProfile()
 
-  // const [ confirmTrip, setConfirmTrip ] = useState([])
-  // const [ pendingTrip, setPendingTrip ] = useState([])
-  // const [upComingPage, setUpComingPage] = useState(0)
-
-
-
+  
   const handleCreateTrip = () => {
     setCreateTripStatus(!createTripStatus);
   };
@@ -46,6 +43,11 @@ function ProfileLayout() {
         setAuthUser(null);
     clearToken();
   };
+
+  const handleJoin = async (id) => {
+    alert("id"+id+"is clicked")
+    await ApiJoinTripbyUser( id )
+  }
 
   return (
     <>
@@ -74,39 +76,11 @@ function ProfileLayout() {
         </div>
       </div>
 
-      
-      <div className="flex justify-between mx-auto w-5/6 p-10">
-      <div >Confirmed Trip</div>
-      <div className="join bg-green-400">
-          <button className="join-item btn" onClick={handleClickBack}>«</button>
-          <button className="join-item btn">Page {upComingPage + 1}</button>
-          <button className="join-item btn" onClick={handleClickForward}>»</button>
-      </div>
-      </div>
-      
-     <div className="mx-auto w-5/6 p-10">
-      <div className="grid grid-cols-3 justify-items-center gap-10 bg-red-300">
-      {confirmTrip ? confirmTrip.map(el => <TripCard src={el.tripPicture} buttonMessage="Join Now" startLoc={el.startLoc} endLoc={el.endLoc} startDate={dayjs(el.startDate).format('DD-MMM-YYYY')} />):null}
-     
-        </div>
-        </div>
-         
-    
-        <div className="flex justify-between mx-auto w-5/6 p-10">
-      <div >Waiting to Confirmed</div>
-      <div className="join bg-green-400">
-          <button className="join-item btn" onClick={handleClickBack}>«</button>
-          <button className="join-item btn">Page {upComingPage + 1}</button>
-          <button className="join-item btn" onClick={handleClickForward}>»</button>
-      </div>
-      </div>
-      
-     <div className="mx-auto w-5/6 p-10">
-      <div className="grid grid-cols-3 justify-items-center gap-10 bg-red-300">
-      {pendingTrip ? pendingTrip.map(el => <TripCard src={el.tripPicture} buttonMessage="Join Now" startLoc={el.startLoc} endLoc={el.endLoc} startDate={dayjs(el.startDate).format('DD-MMM-YYYY')} />):null}
-     
-        </div>
-        </div>
+           
+      <TripDisplay trip={confirmTrip} title="Ready for travel " buttonMessage="View Trip" page={3}  />            
+      <TripDisplay trip={pendingTrip} title="On-process Trip" buttonMessage="Modify Trip" page={3} />
+      <TripDisplay trip={upComingTrip} title="Suggestion Trip" buttonMessage="Join Trip" page={3} />
+
       
       
       {createTripStatus ? (

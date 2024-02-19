@@ -21,7 +21,7 @@ export default function TripContainer({onClose}) {
       e.preventDefault();
       alert("submit trip1");    
       const errorValidate = validateTrip(input);
-      console.log(errorValidate)
+      // console.log(errorValidate)
       if (Object.keys(errorValidate).length > 0) {
         alert('error found')
         setError(errorValidate);
