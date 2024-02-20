@@ -12,6 +12,7 @@ export default function AuthContextProvider({ children }) {
   const [guestTripAll, setGuestTripAll] = useState([])
   const [displayTrip, setDisplayTrip] = useState([])
   const [upComingPage, setUpComingPage] = useState(0)
+  const [initialLoading,setInitialLoading]=useState(true)
 
     
   const register = async user => {
@@ -38,6 +39,17 @@ export default function AuthContextProvider({ children }) {
     
 }
  
+async function fetchTrip() {
+  ApigetTripbyGuest().then(res => {
+  setGuestTripAll(res.data.tripResult)
+  setDisplayTrip(res.data.tripResult)
+  console.log("within this fetchTrip")
+  console.log(displayTrip)
+
+
+  }).catch(err => console.log(err))
+
+}
   
   useEffect(() => {
   
@@ -49,25 +61,24 @@ export default function AuthContextProvider({ children }) {
         .catch(err => {
           console.log(err.response?.data.message);
         })
-       
-      
+            
+    } 
+
+    fetchTrip()
+    console.log("UseEffect Loading")
+    console.log(displayTrip)
+
+
+  }, [])       
+  
+  if (initialLoading) {
+    fetchTrip() 
+    console.log("within Initial Loading")
+    console.log(displayTrip)
+    setInitialLoading(false)
     }
-  async function fetchTrip() {
-
-  
  
-      ApigetTripbyGuest().then(res => {
-      setGuestTripAll(res.data.tripResult)
-      setDisplayTrip([])
-      setDisplayTrip(res.data.tripResult.slice(upComingPage*12,upComingPage*12+11))
- 
-      }).catch(err => console.log(err))
     
-  }
-  
-  fetchTrip()
-
-  },[upComingPage])       
   
     
       return (

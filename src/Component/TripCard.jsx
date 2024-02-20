@@ -1,6 +1,10 @@
 import React from "react";
+import { useEffect } from "react";
 
-export default function TripCard({buttonMessage,src,startLoc,endLoc,startDate,endDate,onClick}) {
+export default function TripCard({ buttonMessage, src, startLoc, endLoc, startDate, endDate, onClick }) {
+  
+
+
   return (
     <>
       <div className="card card-compact w-5/6 bg-base-100 shadow-xl">
