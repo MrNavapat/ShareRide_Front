@@ -1,14 +1,17 @@
 import React, { useState,useEffect } from "react";
 import TripCard from "./TripCard";
 import dayjs from "dayjs";
-import { ApiJoinTripbyUser } from "../api/trip";
+import { ApiUnJoinTripbyUser, ApiJoinTripbyUser } from "../api/tripmember";
+import { ApigetTripbyGuest } from "../api/trip";
 import useAuth from "../hooks/user-auth";
+import useProfile from "../hooks/trip-auth";
 
-export default function TripDisplay({ trip, title,buttonMessage ,page}) {
+export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
   const [currentPage, setCurrentPage] = useState(0);
   const [displayTrip, setDisplayTrip] = useState([])
+ 
+  
 
-   
     useEffect(() => {
        function tripByPage() {       
         console.log(trip.slice(currentPage * page, currentPage * page + page))
@@ -32,11 +35,18 @@ export default function TripDisplay({ trip, title,buttonMessage ,page}) {
         }
     };
     
-    const handleJoin = async (id) => {
-        alert("id"+id+"is clicked")
-        await ApiJoinTripbyUser( id )
+  const handleClick = async (id) => {
+      
+    if (mode == "Join Trip") {
+      alert("id" + id + "Join trip")
+      await ApiJoinTripbyUser(id)
+    } else if (mode == "Unjoin Trip") {
+      alert("id" + id + "Unjoin trip")
+      await ApiUnJoinTripbyUser(id)
+    } else if (mode == "Manage Trip") {
+      
+    }
   }
-
     return (
     <>
       <div className="flex justify-between mx-auto w-5/6 p-10">
@@ -60,7 +70,7 @@ export default function TripDisplay({ trip, title,buttonMessage ,page}) {
                 startLoc={el.startLoc}
                 endLoc={el.endLoc}
                 startDate={dayjs(el.startDate).format("DD-MMM-YYYY")}
-                onClick={e=>{handleJoin(el.id)}}  
+                onClick={e=>{handleClick(el.id)}}  
               />
             ))
           : null}

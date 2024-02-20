@@ -12,14 +12,17 @@ export default function ProfileContextProvider({ children }) {
   const [pendingTrip, setPendingTrip] = useState([])
   const [upComingTrip,setUpComingTrip]=useState([])
   const [upComingPage, setUpComingPage] = useState(0)
+  const [manageTrip,setManageTrip]=useState([])
 
     useEffect(()=>{
       async function fetchProfileTrip() {
-        alert("effect is running")
+        alert("effect is running ")
          ApigetTripbyUser().then(res => {
           setConfirmTrip(res.data.confirmTripResult)
            setPendingTrip(res.data.pendingTripResult)
            setUpComingTrip(res.data.upComingTripResult)
+           setManageTrip(res.data.manageTripResult)
+
        
         }).catch(err => console.log(err))
             
@@ -30,7 +33,7 @@ export default function ProfileContextProvider({ children }) {
       },[])
 
  return (
-    <ProfileContext.Provider value={{trip,setTrip,confirmTrip,pendingTrip,upComingTrip,upComingPage}}  >  {children} </ProfileContext.Provider>
+    <ProfileContext.Provider value={{trip,setTrip,confirmTrip,pendingTrip,upComingTrip,manageTrip,setUpComingTrip,setPendingTrip,upComingPage,}}  >  {children} </ProfileContext.Provider>
   );
 
     

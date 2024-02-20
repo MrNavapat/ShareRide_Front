@@ -82,23 +82,9 @@ function HomePages() {
         </div>
       </div>
       
-      <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="View Trip" page={9}  />            
+      <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="View Trip" page={9} mode="Display"  />            
 
-
-       {/* <div className="flex justify-between mx-auto w-5/6 p-10">
-      <div >Upcoming Trip</div>
-      <div className="join bg-green-400">
-          <button className="join-item btn" onClick={handleClickBack}>«</button>
-          <button className="join-item btn">Page {upComingPage + 1}</button>
-          <button className="join-item btn" onClick={handleClickForward}>»</button>
-      </div>
-  </div>
-      <div className="mx-auto w-5/6 p-10">
-      <div className="grid grid-cols-3 justify-items-center gap-10">
-                {displayTrip ? displayTrip.map(el => <TripCard src={el.tripPicture} buttonMessage="Join Now" startLoc={el.startLoc} endLoc={el.endLoc} startDate={dayjs(el.startDate).format('DD-MMM-YYYY')} />):null}
-     
-        </div>
-        </div>   */}
+    
 
 
 

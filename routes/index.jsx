@@ -4,6 +4,7 @@ import ProfilePages from '../src/pages/ProfilePages'
 import ProtectedRoute from '../src/Component/ProtectedRoute'
 import RedirectifAuthenticate from '../src/Component/RedirectifAuthenticate'
 import UserTrip from '../src/Component/UserTrip'
+import TripInformation from '../src/pages/TripInformation'
 
 
 const router = createBrowserRouter([
@@ -25,9 +26,16 @@ const router = createBrowserRouter([
         <ProfilePages />
         </ProtectedRoute>
         )
-      }
+      },
 
-
+      {
+        path: '/tripinfo',
+        element: (
+        <ProtectedRoute>
+        <TripInformation />
+        </ProtectedRoute>
+        )
+      },
 
 ])
 

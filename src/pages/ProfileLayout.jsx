@@ -1,15 +1,12 @@
 import React from "react";
 import HeroPic from "../../asset/forPage/Hero2.jpg";
 import Modal from "../Component/Modal";
-import { useState,useEffect } from "react";
+import { useState} from "react";
 import TripContainer from "../Component/TripContainer";
 import useAuth from "../hooks/user-auth"
 import ShareRideSlogan from "../Component/ShareRideSlogan";
-// import { ApigetTripbyUser } from "../api/trip";
-import { ApiJoinTripbyUser } from "../api/trip";
 import useProfile from "../hooks/trip-auth";
 import TripCard from "../Component/TripCard";
-// import dayjs from "dayjs";
 import { clearToken } from "../utils/local-storage";
 import TripDisplay from "../Component/TripDisplay";
 
@@ -17,7 +14,7 @@ function ProfileLayout() {
 
   const [createTripStatus, setCreateTripStatus] = useState(false)
   const { authUser,setAuthUser } = useAuth()
-  const {confirmTrip,pendingTrip,upComingTrip,upComingPage,setUpComingPage}=useProfile()
+  const {confirmTrip,pendingTrip,upComingTrip,manageTrip,upComingPage,setUpComingPage}=useProfile()
 
   
   const handleCreateTrip = () => {
@@ -44,11 +41,7 @@ function ProfileLayout() {
     clearToken();
   };
 
-  const handleJoin = async (id) => {
-    alert("id"+id+"is clicked")
-    await ApiJoinTripbyUser( id )
-  }
-
+ 
   return (
     <>
       <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative bg-red-400">
@@ -77,9 +70,10 @@ function ProfileLayout() {
       </div>
 
            
-      <TripDisplay trip={confirmTrip} title="Ready for travel " buttonMessage="View Trip" page={3}  />            
-      <TripDisplay trip={pendingTrip} title="On-process Trip" buttonMessage="Modify Trip" page={3} />
-      <TripDisplay trip={upComingTrip} title="Suggestion Trip" buttonMessage="Join Trip" page={3} />
+      <TripDisplay trip={confirmTrip} title="Ready for travel " buttonMessage="View Trip" page={3} mode="Display"  />            
+      <TripDisplay trip={pendingTrip} title="On-process Trip" buttonMessage="Unjoin Trip" page={3} mode="Unjoin Trip" />
+      <TripDisplay trip={upComingTrip} title="Suggestion Trip" buttonMessage="Join Trip" page={3} mode="Join Trip"/>
+      <TripDisplay trip={manageTrip} title="Trip Manager" buttonMessage="View Trip" page={3} mode="Manage Trip"/>
 
       
       
