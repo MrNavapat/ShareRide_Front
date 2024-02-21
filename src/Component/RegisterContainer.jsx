@@ -5,7 +5,7 @@ import useAuth from "../hooks/user-auth";
 import { toast } from "react-toastify";
 
 export default function RegisterContainer({ onClose }) {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState({sex:"Male",userType:"TRAVELLER"});
   const [error, setError] = useState({});
   const { register } = useAuth();
 
@@ -18,6 +18,7 @@ export default function RegisterContainer({ onClose }) {
       e.preventDefault();
       const errorValidate = validateRegister(input);
       if (errorValidate) {
+        console.log(errorValidate)
         setError(errorValidate);
       }
       delete input.confirmedPassword;
@@ -25,15 +26,18 @@ export default function RegisterContainer({ onClose }) {
       toast.success("register successfully");
       onClose();
     } catch (err) {
-      console.log(err);
+      
+      if (err.response?.data.message === 'User exists') {
+        return setError({ userName: 'username already in use' });
+      }
     }
   };
 
   return (
     <>
       <form onSubmit={handleSubmitForm}>
-        <div className="px-4 py-2">
-          <div className="flex gap-2 ">
+        <div className="px-4 py-2 bg-gray-100">
+          <div className="flex gap-2 bg-gray-100">
             <Input
               placeholder="Firstname"
               value={input?.firstName}
@@ -50,12 +54,14 @@ export default function RegisterContainer({ onClose }) {
             ></Input>
           </div>
 
-          <div className="flex gap-2 ">
+          <div className="flex gap-2  bg-gray-100">
             <Input
               placeholder="Nationality"
               value={input?.nationality}
               name="nationality"
               onChange={handleChange}
+              errorMessage={error?.nationality}
+
             ></Input>
             <Input
               type="date"
@@ -63,29 +69,42 @@ export default function RegisterContainer({ onClose }) {
               value={input?.birthday}
               name="birthday"
               onChange={handleChange}
+              errorMessage={error?.birthday}
             ></Input>
-            <Input
+            {/* <Input
               placeholder="Sex"
               value={input?.sex}
               name="sex"
               onChange={handleChange}
-            ></Input>
+            ></Input> */}
+            <select name="sex" className="h-10 mt-8 rounded-lg" onChange={handleChange}>
+              <option value="Male" selected>Male</option>
+              <option value="Female">Female</option>
+            </select>
+
           </div>
 
-          <div className="flex gap-2 ">
+          <div className="flex gap-2  bg-gray-100 ">
             <Input
               placeholder="Occupation"
               value={input?.occupation}
               name="occupation"
               onChange={handleChange}
+              errorMessage={error?.occupation}
             ></Input>
             
-            <Input
+            {/* <Input
               placeholder="UserType"
               value={input?.userType}
               name="userType"
               onChange={handleChange}
-            ></Input>
+            ></Input> */}
+
+            <select name="userType" className="h-10 mt-8 rounded-lg" onChange={handleChange}>
+              <option value="DRIVER_TRAVELLER" >DRIVER_TRAVELLER</option>
+              <option value="TRAVELLER" selected>TRAVELLER</option>
+            </select>
+
           </div>
 
           <Input
@@ -93,6 +112,7 @@ export default function RegisterContainer({ onClose }) {
             value={input?.nationalId}
             name="nationalId"
             onChange={handleChange}
+            errorMessage={error?.nationalId}
           ></Input>
 
           <Input
@@ -100,26 +120,30 @@ export default function RegisterContainer({ onClose }) {
             value={input?.drivingLicense}
             name="drivingLicense"
             onChange={handleChange}
+            errorMessage={error?.drivingLicense}
           ></Input>
           <Input
             placeholder="Telephone number"
             value={input?.telephone}
             name="telephone"
             onChange={handleChange}
+            errorMessage={error?.telephone}
           ></Input>
 
-          <div className="flex gap-2 ">
+          <div className="flex gap-2  bg-gray-100">
             <Input
               placeholder="Car Model"
               value={input?.carModel}
               name="carModel"
               onChange={handleChange}
+              errorMessage={error?.carModel}
             ></Input>
             <Input
-              placeholder="Num seat "
+              placeholder="Number of seat "
               value={input?.numSeat}
               name="numSeat"
               onChange={handleChange}
+              errorMessage={error?.numSeat}
             ></Input>
           </div>
           <Input
@@ -149,7 +173,7 @@ export default function RegisterContainer({ onClose }) {
           ></Input>
 
           <div className="flex flex-col items-center py-4">
-            <button className="  bg-red-500 px-8 py-2 rounded-full mt-2">
+            <button className=" font-bold bg-gray-300 px-8 py-2 rounded-full mt-2">
               Register
             </button>
           </div>

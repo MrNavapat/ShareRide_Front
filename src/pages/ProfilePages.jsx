@@ -4,9 +4,9 @@ import ProfileContextProvider from "../Context/ProfileContext";
 
 function ProfilePages() {
   return (
-    <ProfileContextProvider>
+    // <ProfileContextProvider>
       <ProfileLayout />
-      </ProfileContextProvider>
+      // </ProfileContextProvider>
 
 )
 

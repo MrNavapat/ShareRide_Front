@@ -5,13 +5,16 @@ import { ApiUnJoinTripbyUser, ApiJoinTripbyUser } from "../api/tripmember";
 import { ApigetTripbyGuest } from "../api/trip";
 import useAuth from "../hooks/user-auth";
 import useProfile from "../hooks/trip-auth";
+import { useNavigate } from "react-router-dom";
 
 export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
   const [currentPage, setCurrentPage] = useState(0);
   const [displayTrip, setDisplayTrip] = useState([])
- 
-  
+  console.log(useProfile());
+  const { setForRefresh } = useProfile()
 
+  const navigate = useNavigate(); 
+  
     useEffect(() => {
        function tripByPage() {       
         console.log(trip.slice(currentPage * page, currentPage * page + page))
@@ -40,11 +43,14 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
     if (mode == "Join Trip") {
       alert("id" + id + "Join trip")
       await ApiJoinTripbyUser(id)
+      setForRefresh(prv=>!prv)
     } else if (mode == "Unjoin Trip") {
       alert("id" + id + "Unjoin trip")
       await ApiUnJoinTripbyUser(id)
+      setForRefresh(prv=>!prv)
+
     } else if (mode == "Manage Trip") {
-      
+      navigate(`/tripinformation/${id}`)
     }
   }
     return (

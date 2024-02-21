@@ -1,6 +1,7 @@
 import {useState,useEffect} from 'react'
 import { createContext, useContext } from 'react'
 import { ApigetTripbyUser } from '../api/trip';      
+import useProfile from '../hooks/trip-auth';
 
 
 export const ProfileContext = createContext();
@@ -8,11 +9,13 @@ export const ProfileContext = createContext();
 export default function ProfileContextProvider({ children }) {
 
   const [trip, setTrip] = useState(null)
-  const [ confirmTrip, setConfirmTrip ] = useState([])
+  const [confirmTrip, setConfirmTrip ] = useState([])
   const [pendingTrip, setPendingTrip] = useState([])
   const [upComingTrip,setUpComingTrip]=useState([])
   const [upComingPage, setUpComingPage] = useState(0)
-  const [manageTrip,setManageTrip]=useState([])
+  const [manageTrip, setManageTrip] = useState([])
+  const [forRefresh, setForRefresh ] = useState(false)
+  
 
     useEffect(()=>{
       async function fetchProfileTrip() {
@@ -30,10 +33,10 @@ export default function ProfileContextProvider({ children }) {
       
       fetchProfileTrip()
   
-      },[])
+      },[forRefresh])
 
  return (
-    <ProfileContext.Provider value={{trip,setTrip,confirmTrip,pendingTrip,upComingTrip,manageTrip,setUpComingTrip,setPendingTrip,upComingPage,}}  >  {children} </ProfileContext.Provider>
+    <ProfileContext.Provider value={{trip,setTrip,confirmTrip,pendingTrip,upComingTrip,manageTrip,setUpComingTrip,setPendingTrip,upComingPage,forRefresh,setForRefresh}}  >  {children} </ProfileContext.Provider>
   );
 
     

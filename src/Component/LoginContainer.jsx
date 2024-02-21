@@ -24,7 +24,7 @@ export default function LoginContainer({onClose}) {
             setError(errorValidate);
           }
             login(input);
-            // toast.success("login successfully");
+             toast.success("login successfully");
             onClose();
         } catch (err) {
             console.log(err);
@@ -38,7 +38,7 @@ export default function LoginContainer({onClose}) {
 
   <form onSubmit={handleSubmitForm}>  
 
-        <div>
+        <div className="px-4 py-2">
             <Input
               placeholder="Username"
               value={input?.userName}
@@ -56,7 +56,7 @@ export default function LoginContainer({onClose}) {
               ></Input>
                   
               <div className="flex flex-col items-center py-4">
-              <button className="bg-red-500 px-8 py-2 rounded-full mt-2">Login</button>
+              <button className="bg-gray-400 px-8 py-2 rounded-full mt-2 font-bold">Login</button>
               </div>
 
       </div>

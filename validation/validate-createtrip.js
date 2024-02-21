@@ -12,11 +12,15 @@ const customValidatorOneWeek = (value, helpers) => {
     }
   
     if (date.isBefore(oneWeekFromNow)) {
-      return helpers.error('date.moreThanOneWeek');
+      return helpers.error('444', { custom: 7 },{customErrorField:"Duration"});
     }
   
     return value;
-  };
+};
+  
+
+
+
 
 
 const tripSchema = Joi.object({

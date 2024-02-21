@@ -16,12 +16,15 @@ export default function TripContainer({onClose}) {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
 
+
+
+  
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
       alert("submit trip1");    
       const errorValidate = validateTrip(input);
-      // console.log(errorValidate)
+      console.log(errorValidate)
       if (Object.keys(errorValidate).length > 0) {
         alert('error found')
         setError(errorValidate);
@@ -44,7 +47,7 @@ export default function TripContainer({onClose}) {
 
   return (
     <form onSubmit={handleSubmitForm}>
-      <div>
+      <div className="px-4 py-2">
         <Input
           placeholder="Start Location"
           value={input?.startLoc}
@@ -90,7 +93,7 @@ export default function TripContainer({onClose}) {
 
         <Uploadpic setTripPic={setTripPic} />
         <div className="flex flex-col items-center py-4">
-          <button className="bg-red-500 px-8 py-2 rounded-full mt-2">
+          <button className="bg-gray-300 px-8 py-2 rounded-full mt-2 font-bold">
             Create Trip
           </button>
         </div>

@@ -14,7 +14,7 @@ function ProfileLayout() {
 
   const [createTripStatus, setCreateTripStatus] = useState(false)
   const { authUser,setAuthUser } = useAuth()
-  const {confirmTrip,pendingTrip,upComingTrip,manageTrip,upComingPage,setUpComingPage}=useProfile()
+  const {confirmTrip,pendingTrip,upComingTrip,manageTrip,upComingPage,setUpComingPage,setForRefresh}=useProfile()
 
   
   const handleCreateTrip = () => {
@@ -70,10 +70,10 @@ function ProfileLayout() {
       </div>
 
            
-      <TripDisplay trip={confirmTrip} title="Ready for travel " buttonMessage="View Trip" page={3} mode="Display"  />            
-      <TripDisplay trip={pendingTrip} title="On-process Trip" buttonMessage="Unjoin Trip" page={3} mode="Unjoin Trip" />
-      <TripDisplay trip={upComingTrip} title="Suggestion Trip" buttonMessage="Join Trip" page={3} mode="Join Trip"/>
-      <TripDisplay trip={manageTrip} title="Trip Manager" buttonMessage="View Trip" page={3} mode="Manage Trip"/>
+      <TripDisplay trip={confirmTrip}setForRefresh={setForRefresh} title="Ready for travel " buttonMessage="View Trip" page={3} mode="Display"  />            
+      <TripDisplay trip={pendingTrip} setForRefresh={setForRefresh} title="On-process Trip" buttonMessage="Unjoin Trip" page={3} mode="Unjoin Trip" />
+      <TripDisplay trip={upComingTrip}setForRefresh={setForRefresh}  title="Suggestion Trip" buttonMessage="Join Trip" page={3} mode="Join Trip"/>
+      <TripDisplay trip={manageTrip} setForRefresh={setForRefresh} title="Trip Manager" buttonMessage="View Trip" page={3} mode="Manage Trip"/>
 
       
       

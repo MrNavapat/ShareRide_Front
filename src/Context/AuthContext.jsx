@@ -11,8 +11,6 @@ export default function AuthContextProvider({ children }) {
   const [authUser, setAuthUser] = useState(null)
   const [reload, setReload] = useState(true)
   const [displayTrip, setDisplayTrip] = useState([])
-  // const [upComingPage, setUpComingPage] = useState(0)
-  // const [initialLoading,setInitialLoading]=useState(true)
 
     
   const register = async user => {

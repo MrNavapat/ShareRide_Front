@@ -5,6 +5,8 @@ import ProtectedRoute from '../src/Component/ProtectedRoute'
 import RedirectifAuthenticate from '../src/Component/RedirectifAuthenticate'
 import UserTrip from '../src/Component/UserTrip'
 import TripInformation from '../src/pages/TripInformation'
+import ProfileContextProvider from '../src/Context/ProfileContext'
+import ProfileLayout from '../src/pages/ProfileLayout'
 
 
 const router = createBrowserRouter([
@@ -14,7 +16,9 @@ const router = createBrowserRouter([
         element: (
 
         <RedirectifAuthenticate>
-        <HomePages />
+            <ProfileContextProvider>
+            <HomePages />
+            </ProfileContextProvider>
         </RedirectifAuthenticate>
         )
             
@@ -23,13 +27,15 @@ const router = createBrowserRouter([
         path: '/logindone',
         element: (
         <ProtectedRoute>
-        <ProfilePages />
+            <ProfileContextProvider>
+            <ProfileLayout />
+            </ProfileContextProvider>
         </ProtectedRoute>
         )
       },
 
       {
-        path: '/tripinfo',
+        path: '/tripinformation/:tripId',
         element: (
         <ProtectedRoute>
         <TripInformation />

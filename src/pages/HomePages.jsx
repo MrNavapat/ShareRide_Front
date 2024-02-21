@@ -65,17 +65,7 @@ function HomePages() {
             Register
         </button>
 
-        {registerStatus ? (
-              <Modal title="Register" onClose={closeRegister} width={32} >
-              <RegisterContainer onClose={closeRegister} />
-              </Modal>
-      ) : null}
-
-        {loginStatus ? (
-              <Modal title="Login" onClose={closeLogin} width={24} >
-              <LoginContainer onClose={closeLogin} />
-              </Modal>
-      ) : null}
+  
 
         <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
               <ShareRideSlogan/>
@@ -84,7 +74,17 @@ function HomePages() {
       
       <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="View Trip" page={9} mode="Display"  />            
 
-    
+      {registerStatus ? (
+              <Modal title="Register" onClose={closeRegister} width={32} >
+              <RegisterContainer onClose={closeRegister} />
+              </Modal>
+      ) : null}
+
+        {loginStatus ? (
+              <Modal title="Login" onClose={closeLogin} width={24}  >
+              <LoginContainer onClose={closeLogin} />
+              </Modal>
+      ) : null}
 
 
 
