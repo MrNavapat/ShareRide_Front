@@ -6,6 +6,7 @@ import { ApigetTripbyGuest } from "../api/trip";
 import useAuth from "../hooks/user-auth";
 import useProfile from "../hooks/trip-auth";
 import { useNavigate } from "react-router-dom";
+import initialSrc from "../../asset/forPage/empty.jpg";
 
 export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
   const [currentPage, setCurrentPage] = useState(0);
@@ -56,19 +57,19 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
     return (
     <>
       <div className="flex justify-between mx-auto w-5/6 p-10">
-        <div>{title}</div>
+        <div className="text-xl font-bold">{title}</div>
         <div className="join bg-green-400">
-          <button className="join-item btn" onClick={handleClickBack}></button>        
+            <button className="join-item btn" onClick={handleClickBack}>{`<<`}</button>        
                   <button className="join-item btn">Page {currentPage + 1}/ {Math.ceil(trip.length / page)}</button>
-          <button className="join-item btn" onClick={handleClickForward}></button>      
+            <button className="join-item btn" onClick={handleClickForward}>{`>>`}</button>      
        
         </div>
       </div>
 
       <div className="mx-auto w-5/6 p-10">
 
-      <div className="grid grid-cols-3 justify-items-center gap-10 bg-red-300">
-        {displayTrip
+      <div className="grid grid-cols-3 justify-items-center gap-10">
+        {displayTrip.length
           ? displayTrip.map((el) => (
               <TripCard
                 src={el.tripPicture}
@@ -79,7 +80,15 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
                 onClick={e=>{handleClick(el.id)}}  
               />
             ))
-          : null}
+          : <TripCard
+          src={initialSrc}
+          buttonMessage="No any trip relates"
+          startLoc=""
+          endLoc=""
+          startDate=""
+          onClick={e =>e } />
+            
+            }
         </div>
         </div>
     </>

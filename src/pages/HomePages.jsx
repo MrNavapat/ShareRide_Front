@@ -47,7 +47,7 @@ function HomePages() {
 
   return (
     <>
-      <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative bg-red-400">
+      <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative ">
         <img src={HeroPic} />
 
         <div className="absolute top-20 start-0 left-28 text-white text-4xl hover:font-bold ">

@@ -79,7 +79,7 @@ function ProfileLayout() {
       
       {createTripStatus ? (
         <Modal title="Create Trip" onClose={closeCreateTrip} width={24} >
-          <TripContainer onClose={closeCreateTrip} />
+          <TripContainer onClose={closeCreateTrip} setForRefresh={setForRefresh} />
         </Modal>
       ) : null}
 

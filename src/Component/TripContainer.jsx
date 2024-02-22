@@ -5,12 +5,13 @@ import { validateTrip } from "../../validation/validate-createtrip";
 import Uploadpic from "./Uploadpic";
 import useAuth from "../hooks/user-auth";
 import dayjs from "dayjs";
+import useProfile from "../hooks/trip-auth";
 
-export default function TripContainer({onClose}) {
+export default function TripContainer({onClose,setForRefresh}) {
   const [input, setInput] = useState({});
   const [tripPic, setTripPic] = useState({});
   const [error, setError] = useState({});
-  const { createTrip, authUser,setReload} = useAuth();
+  const { createTrip, authUser } = useAuth();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -38,7 +39,7 @@ export default function TripContainer({onClose}) {
         formData.append("tripMember",input.tripMember)
         formData.append("requestorId",authUser.id)
         createTrip(formData)
-        setReload(prv=>!prv)
+        setForRefresh(prv=>!prv)
         onClose()
       }
     } catch (err) {
