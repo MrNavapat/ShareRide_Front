@@ -8,3 +8,4 @@ export const ApigetTripMemberbyTripId=(tripId)=>axios.get(`/tripmember/${tripId}
 
 
 
+export const ApiupdateTripMemberbyTripIdandMemberId=(tripId,tripMemberId,data)=>axios.patch(`/tripmember/${tripId}/${tripMemberId}`,data)

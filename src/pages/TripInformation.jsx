@@ -1,32 +1,41 @@
 import { useParams } from "react-router-dom"
-import { ApigetTripbyTripId } from "../api/trip"
-import { ApigetTripMemberbyTripId } from "../api/tripmember"
+import { ApigetTripbyTripId ,ApiupdateTripInfobyTripId} from "../api/trip"
+import { ApigetTripMemberbyTripId,ApiupdateTripMemberbyTripIdandMemberId } from "../api/tripmember"
 import { useState, useEffect } from "react"
 import dayjs from "dayjs"
 import Input from "../Component/Input"
+import { validateTrip } from "../../validation/validate-createtrip"
+import ConfirmModal from "../Component/ConfirmModal"
 
 export default function TripInformation() {
 
   const { tripId } = useParams()
   const [inputTripInfo, setInputTripInfo] = useState([])
   const [inputTripMember, setInputTripMember] = useState([])
-  const [errorTripInfo,setErrorTripInfo]=useState([])
+  const [newTripConfirmation,setNewTripConfirmation]=useState(null)
+  const [errorTripInfo, setErrorTripInfo] = useState([])
+  const [forRefresh, setForRefresh] = useState(true)
+  // const [confirmModal,setConfirmModal]=useState(false)
   
   const handleChange = (e) => {
     setInputTripInfo({ ...inputTripInfo, [e.target.name]: e.target.value });
   };
 
+  const handleChangeTripMember = (e) => {
+       setNewTripConfirmation({...newTripConfirmation, [e.target.name]: e.target.value})
+  }
 
   useEffect(()=>{
     async function fetchTripInformation() {
       
-         
-      ApigetTripbyTripId(tripId).then(res => {
+      alert('fetch trip is working')
+      await ApigetTripbyTripId(tripId).then(res => {
         setInputTripInfo(res.data.TripResultbyTripId)
+        console.log(inputTripInfo)
       }).catch(err => console.log(err))
 
 
-      ApigetTripMemberbyTripId(tripId).then(res => {
+      await ApigetTripMemberbyTripId(tripId).then(res => {
         setInputTripMember(res.data.TripMemberResultbyTripId)
         console.log(inputTripMember)
       }).catch(err => console.log(err))
@@ -35,16 +44,30 @@ export default function TripInformation() {
     
     fetchTripInformation()
 
-  }, [])
+  }, [forRefresh])
   
-  const handleUpdateTripInfo = (e) => {
-          e.preventDefault();
-           alert('Update is ongoing')
+  const handleUpdateTripInfo = async (e) => {
+        
+    const updateTripInfoData = { ...inputTripInfo }
+    updateTripInfoData.startDate = dayjs(updateTripInfoData.startDate).toISOString()
+    updateTripInfoData.endDate = dayjs(updateTripInfoData.endDate).toISOString()
+    
+    try {
+      e.preventDefault();
+      alert("submit trip1");
+      await ApiupdateTripInfobyTripId(tripId, updateTripInfoData)
+      setForRefresh(prv => !prv)
+   
+    } catch(err) {
+      console.log(err)
+    }
+}
+  const handleUpdateTripMember = async(id) => {
+    alert('TripMemberId ' + id)
+    alert('TripId '+tripId)
+    await ApiupdateTripMemberbyTripIdandMemberId(tripId, +id, newTripConfirmation)
+    setForRefresh(prv=>!prv)
 
-  }   
-  
-  const handleUpdateTripMember = (id) => {
-    alert('TripMemberId '+id)
 
   }
 
@@ -67,7 +90,7 @@ export default function TripInformation() {
                       onChange={handleChange}
                       errorMessage={errorTripInfo?.tripMember}
                             />
-                      <input className="mt-4" type="date" value={dayjs(inputTripInfo.startDate).format('YYYY-MM-DD')} />   
+                      <input className="mt-4" name="startDate" type="date" value={dayjs(inputTripInfo?.startDate).format('YYYY-MM-DD')} onChange={handleChange} />   
                     <Input
                       placeholder="Trip Member"
                       value={inputTripInfo?.tripMember}
@@ -86,14 +109,14 @@ export default function TripInformation() {
                        onChange={handleChange}
                        errorMessage={errorTripInfo?.endLoc}
                        />
-                      <input className="mt-4 "  type="date" value={dayjs(inputTripInfo.endDate).format('YYYY-MM-DD')} />
+                      <input className="mt-4 " name="endDate" type="date" value={dayjs(inputTripInfo?.endDate).format('YYYY-MM-DD')} onChange={handleChange}/>
              
                 <div className="flex flex-row mt-8">
-            <select name="tripStatus" className='h-9 block  rounded-md'>
-              <option selected>INITIATE</option>
+                  <select name="tripStatus" value={inputTripInfo?.tripStatus} className='h-9 block  rounded-md'onChange={handleChange}>
+              <option >INITIATE</option>
               <option>CONFIRM</option>
-              <option>END</option>
-              <option>CANCEL</option>
+              <option >END</option>
+              <option >CANCEL</option>
                 </select>
                 <button className="bg-red-200 ml-8 px-8 rounded-md text-xl font-bold">Update</button>
                 </div>
@@ -106,41 +129,6 @@ export default function TripInformation() {
 
         <div className=' flex flex-col justify-center bg-red-400' >
           <div className="flex flex-col bg-green-200 items-center ">
-            {/* <div style={{ height: `680px` }} className="bg-blue-400">
-
-              <div className="flex flex-row gap-2 mt-2 font-bold">
-                    <div className="w-32 h-10 py-2">First Name</div>
-                      <div className="w-32 h-10 py-2">Last Name</div>
-                    <div className="w-32 h-10 py-2">Username</div>
-                    <div className="w-32 h-10 py-2"> Trip Position</div>
-                    <div className="w-32 h-10 py-2">Current  </div>
-                    <div className="w-32 h-10 py-2">New Trip Confirmation </div>
-              </div>
-
-              {inputTripMember.map(el => (
-                <div className="flex flex-row gap-2 mt-2">
-
-                
-                  <div className="w-32 h-10 py-2">{el.user.firstName}</div>
-                  <div className="w-32 h-10 py-2">{el.user.lastName}</div>
-                  <div className="w-32 h-10 py-2">{el.user.userName}</div>
-                  <div className="w-32 h-10 py-2"> {el.tripPosition}</div>
-                  <div className="w-32 h-10 py-2">{el.tripConfirmation}</div>
-                  <div className="w-32 h-10" >
-                            <select className="h-10 bg-transparent" >
-                              <option value="CONFIRMED">CONFIRMED</option>
-                              <option value="PENDING">PENDING</option>
-                              <option value="REJECTED">REJECTED</option>
-                            </select>
-                  </div>
-                  <button className="bg-blue-300 w-32 font-bold rounded-md" >Update Trip member</button>
-                
-                 
-                  </div>
-                ))} 
-                
-            </div> */}
-            
             <div style={{ height: `680px` }} className="bg-blue-400">
               <table className="table">
               <caption class="caption-top text-4xl font-extrabold">
@@ -169,13 +157,13 @@ export default function TripInformation() {
                     <td className="text-lg">{el.tripPosition}</td>
                     <td className="text-lg">{el.tripConfirmation}</td>
                     <td className="text-lg">
-                      <select className="h-10 bg-transparent" >
-                              <option value="CONFIRMED">CONFIRMED</option>
-                              <option value="PENDING">PENDING</option>
-                              <option value="REJECTED">REJECTED</option>
+                      <select className="h-10 bg-transparent" name="tripConfirmation" onChange={handleChangeTripMember} >
+                              <option >CONFIRMED</option>
+                              <option >PENDING</option>
+                              <option >REJECTED</option>
                        </select></td>
                     <td>
-                      <button className="bg-blue-300 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
+                      <button type="button" className="bg-blue-300 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
                     </td>
 
                   </tr>
@@ -192,7 +180,11 @@ export default function TripInformation() {
 
       </div>
 
-      
+      {/* {confirmModal ? (
+              <Modal title="Please confirm"  width={32} >
+              <ConfirmModal/>
+              </Modal>
+      ) : null} */}
       
       </>
   )

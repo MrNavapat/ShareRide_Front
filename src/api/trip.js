@@ -9,5 +9,5 @@ export const ApigetTripbyGuest = () => axios.get('/trip/all')
 
 export const ApigetTripbyTripId = (tripId) => axios.get(`/trip/${tripId}`)
 
-
+export const ApiupdateTripInfobyTripId=(tripIdX,data)=>axios.patch(`/trip/${tripIdX}`,data)
 

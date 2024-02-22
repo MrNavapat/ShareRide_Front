@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: (
         <ProtectedRoute>
             <ProfileContextProvider>
-            <ProfileLayout />
+                <ProfileLayout />
             </ProfileContextProvider>
         </ProtectedRoute>
         )
@@ -37,8 +37,8 @@ const router = createBrowserRouter([
       {
         path: '/tripinformation/:tripId',
         element: (
-        <ProtectedRoute>
-        <TripInformation />
+            <ProtectedRoute>
+                    <TripInformation />
         </ProtectedRoute>
         )
       },

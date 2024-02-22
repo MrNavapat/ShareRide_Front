@@ -10,7 +10,7 @@ export default function TripContainer({onClose}) {
   const [input, setInput] = useState({});
   const [tripPic, setTripPic] = useState({});
   const [error, setError] = useState({});
-  const { createTrip, authUser} = useAuth();
+  const { createTrip, authUser,setReload} = useAuth();
 
   const handleChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
@@ -38,6 +38,7 @@ export default function TripContainer({onClose}) {
         formData.append("tripMember",input.tripMember)
         formData.append("requestorId",authUser.id)
         createTrip(formData)
+        setReload(prv=>!prv)
         onClose()
       }
     } catch (err) {

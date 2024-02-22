@@ -38,7 +38,7 @@ export default function AuthContextProvider({ children }) {
 }
  
 async function fetchTrip() {
-  ApigetTripbyGuest().then(res => {
+  await ApigetTripbyGuest().then(res => {
   setDisplayTrip(res.data.tripResult)
  
 
@@ -68,7 +68,7 @@ async function fetchTrip() {
   
     
       return (
-        <AuthContext.Provider value={{ register,login ,authUser,createTrip,displayTrip,setDisplayTrip,setAuthUser}}  >  {children} </AuthContext.Provider>
+        <AuthContext.Provider value={{ register,login ,authUser,createTrip,displayTrip,setDisplayTrip,setAuthUser,setReload}}  >  {children} </AuthContext.Provider>
       );
     
 
