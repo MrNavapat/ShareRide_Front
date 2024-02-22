@@ -17,19 +17,20 @@ export default function ProfileContextProvider({ children }) {
   const [forRefresh, setForRefresh ] = useState(false)
   
 
-    useEffect(()=>{
-      async function fetchProfileTrip() {
-        alert("effect is running ")
-         ApigetTripbyUser().then(res => {
-          setConfirmTrip(res.data.confirmTripResult)
-           setPendingTrip(res.data.pendingTripResult)
-           setUpComingTrip(res.data.upComingTripResult)
-           setManageTrip(res.data.manageTripResult)
+  async function fetchProfileTrip() {
+    alert("effect is running within fetchProfile Trip ")
+      await ApigetTripbyUser().then(res => {
+       setConfirmTrip(res.data.confirmTripResult)
+       setPendingTrip(res.data.pendingTripResult)
+       setUpComingTrip(res.data.upComingTripResult)
+       setManageTrip(res.data.manageTripResult)
 
-       
-        }).catch(err => console.log(err))
-            
-      }
+   
+    }).catch(err => console.log(err))
+        
+  }
+
+    useEffect(()=>{
       
       fetchProfileTrip()
   

@@ -49,6 +49,7 @@ export default function LoginContainer({onClose}) {
                   
             <Input
               placeholder="Password"
+              type="password"
               value={input?.password}
               name="password"
               onChange={handleChange}

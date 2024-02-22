@@ -34,7 +34,6 @@ export default function AuthContextProvider({ children }) {
 
   const createTrip = async data => {
   const res=await ApicreateTrip(data)
-    
 }
  
 async function fetchTrip() {

@@ -18,7 +18,7 @@ export default function TripCard({ buttonMessage, src, startLoc, endLoc, startDa
         <div className="card-body">
                   <h2 className="card-title">{startLoc} - {endLoc}</h2>
                   <p>{startDate} {endDate}</p>
-          <div className="card-actions justify-end">
+          <div className="card-actions justify-end"  >
             <button className="btn btn-primary" onClick={onClick}>{buttonMessage}</button>
           </div>
         </div>

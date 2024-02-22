@@ -4,18 +4,18 @@ import { ApigetTripMemberbyTripId,ApiupdateTripMemberbyTripIdandMemberId } from 
 import { useState, useEffect } from "react"
 import dayjs from "dayjs"
 import Input from "../Component/Input"
-import { validateTrip } from "../../validation/validate-createtrip"
-import ConfirmModal from "../Component/ConfirmModal"
+import { useNavigate } from "react-router-dom";
 
 export default function TripInformation() {
 
   const { tripId } = useParams()
   const [inputTripInfo, setInputTripInfo] = useState([])
   const [inputTripMember, setInputTripMember] = useState([])
-  const [newTripConfirmation,setNewTripConfirmation]=useState(null)
+  const [newTripConfirmation,setNewTripConfirmation]=useState({tripConfirmation:"CONFIRMED"})
   const [errorTripInfo, setErrorTripInfo] = useState([])
   const [forRefresh, setForRefresh] = useState(true)
-  // const [confirmModal,setConfirmModal]=useState(false)
+
+  const navigate = useNavigate(); 
   
   const handleChange = (e) => {
     setInputTripInfo({ ...inputTripInfo, [e.target.name]: e.target.value });
@@ -61,6 +61,9 @@ export default function TripInformation() {
     } catch(err) {
       console.log(err)
     }
+    navigate(`/logindone`)
+
+
 }
   const handleUpdateTripMember = async(id) => {
     alert('TripMemberId ' + id)
@@ -74,9 +77,9 @@ export default function TripInformation() {
   return (
       <>
       
-      <div className="grid grid-cols-2 bg-blue-400" style={{height: `100vh`}}>
-        <form className='bg-green-300 flex flex-col justify-center ' onSubmit={handleUpdateTripInfo}>
-          <div className="flex flex-col items-center bg-blue-300">
+      <div className="grid grid-cols-2 " style={{height: `100vh`}}>
+        <form className=' flex flex-col justify-center ' onSubmit={handleUpdateTripInfo}>
+          <div className="flex flex-col items-center">
               <div>
                   <img src={inputTripInfo.tripPicture} style={{ width: `500px`, height: `500px` }} />
             </div>
@@ -118,7 +121,7 @@ export default function TripInformation() {
               <option >END</option>
               <option >CANCEL</option>
                 </select>
-                <button className="bg-red-200 ml-8 px-8 rounded-md text-xl font-bold">Update</button>
+                {/* <button className="bg-gray-200 ml-8 px-8 rounded-md text-xl font-bold">Update</button> */}
                 </div>
               </div>
             </div>
@@ -127,9 +130,9 @@ export default function TripInformation() {
             </div>  
         </form>
 
-        <div className=' flex flex-col justify-center bg-red-400' >
-          <div className="flex flex-col bg-green-200 items-center ">
-            <div style={{ height: `680px` }} className="bg-blue-400">
+        <div className=' flex flex-col justify-center ' >
+          <div className="flex flex-col  items-center ">
+            <div style={{ height: `680px` }} className="">
               <table className="table">
               <caption class="caption-top text-4xl font-extrabold">
               Trip Member list
@@ -163,7 +166,7 @@ export default function TripInformation() {
                               <option >REJECTED</option>
                        </select></td>
                     <td>
-                      <button type="button" className="bg-blue-300 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
+                      <button type="button" className="bg-gray-200 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
                     </td>
 
                   </tr>
@@ -173,18 +176,17 @@ export default function TripInformation() {
               </table>
 
               </div>
+          </div>
+          <div className="flex flex-row justify-end ">
+            <button className="bg-gray-300 mr-2 w-32 py-2 px-2 rounded-lg text-xl font-bold " onClick={handleUpdateTripInfo}>Update</button>
+            <button className="bg-gray-300 mr-4 w-60 py-2 px-2 rounded-lg text-xl font-bold " onClick={()=>navigate(`/logindone`)}>Back to your page</button>
 
           </div>
-        
         </div>
 
       </div>
 
-      {/* {confirmModal ? (
-              <Modal title="Please confirm"  width={32} >
-              <ConfirmModal/>
-              </Modal>
-      ) : null} */}
+ 
       
       </>
   )

@@ -38,9 +38,9 @@ export default function TripContainer({onClose,setForRefresh}) {
         formData.append("endLoc", input.endLoc)
         formData.append("tripMember",input.tripMember)
         formData.append("requestorId",authUser.id)
-        createTrip(formData)
-        setForRefresh(prv=>!prv)
+        await createTrip(formData)
         onClose()
+        setForRefresh(prv=>!prv)
       }
     } catch (err) {
       console.log(err);
