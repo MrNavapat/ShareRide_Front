@@ -12,7 +12,7 @@ import ProfileLayout from '../src/pages/ProfileLayout'
 const router = createBrowserRouter([
     
     {
-        path:'/home',
+        path:'/',
         element: (
 
         <RedirectifAuthenticate>
@@ -39,7 +39,7 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                     <TripInformation />
-        </ProtectedRoute>
+            </ProtectedRoute>
         )
       },
 

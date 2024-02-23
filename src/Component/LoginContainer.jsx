@@ -16,22 +16,25 @@ export default function LoginContainer({onClose}) {
     }
 
   const handleSubmitForm = (e) => {
-      alert("Handle Submit Form")
+      // alert("Handle Submit Form")
       try {   
             e.preventDefault();
+            alert("login ")
             const errorValidate = validateLogin(input);
-            if (errorValidate) {
-            setError(errorValidate);
-          }
-            login(input);
-             toast.success("login successfully");
-            onClose();
+            console.log(errorValidate)
+            if (Object.keys(errorValidate).length > 0) {
+              
+              setError(errorValidate);
+            } else {
+              login(input);
+              onClose();
+            }
         } catch (err) {
             console.log(err);
         }
     }
 
-    
+     
   return (
 
 

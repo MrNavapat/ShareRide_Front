@@ -28,7 +28,7 @@ export default function TripInformation() {
   useEffect(()=>{
     async function fetchTripInformation() {
       
-      alert('fetch trip is working')
+      // alert('fetch trip is working')
       await ApigetTripbyTripId(tripId).then(res => {
         setInputTripInfo(res.data.TripResultbyTripId)
         console.log(inputTripInfo)
@@ -54,7 +54,7 @@ export default function TripInformation() {
     
     try {
       e.preventDefault();
-      alert("submit trip1");
+      // alert("submit trip1");
       await ApiupdateTripInfobyTripId(tripId, updateTripInfoData)
       setForRefresh(prv => !prv)
    
@@ -66,8 +66,8 @@ export default function TripInformation() {
 
 }
   const handleUpdateTripMember = async(id) => {
-    alert('TripMemberId ' + id)
-    alert('TripId '+tripId)
+    // alert('TripMemberId ' + id)
+    // alert('TripId '+tripId)
     await ApiupdateTripMemberbyTripIdandMemberId(tripId, +id, newTripConfirmation)
     setForRefresh(prv=>!prv)
 

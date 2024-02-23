@@ -42,11 +42,11 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
   const handleClick = async (id) => {
       
     if (mode == "Join Trip") {
-      alert("id" + id + "Join trip")
+      // alert("id" + id + "Join trip")
       await ApiJoinTripbyUser(id)
       setForRefresh(prv=>!prv)
     } else if (mode == "Unjoin Trip") {
-      alert("id" + id + "Unjoin trip")
+      // alert("id" + id + "Unjoin trip")
       await ApiUnJoinTripbyUser(id)
       setForRefresh(prv=>!prv)
 

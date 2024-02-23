@@ -23,11 +23,11 @@ export default function TripContainer({onClose,setForRefresh}) {
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      alert("submit trip1");    
+      // alert("submit trip1");    
       const errorValidate = validateTrip(input);
       console.log(errorValidate)
       if (Object.keys(errorValidate).length > 0) {
-        alert('error found')
+        // alert('error found')
         setError(errorValidate);
       } else {
         const formData = new FormData();

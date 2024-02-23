@@ -12,6 +12,8 @@ const loginSchema = Joi.object({
 
 export const validateLogin = (input) => {
     const { error } = loginSchema.validate(input, { abortEarly: false });
+    console.log(error)
+    alert("validate login")
     let errorObject={}
     const temp = error?.details.map(el => errorObject[el.path[0]]=el.message)  
     return errorObject

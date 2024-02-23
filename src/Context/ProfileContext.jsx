@@ -18,7 +18,7 @@ export default function ProfileContextProvider({ children }) {
   
 
   async function fetchProfileTrip() {
-    alert("effect is running within fetchProfile Trip ")
+    // alert("effect is running within fetchProfile Trip ")
       await ApigetTripbyUser().then(res => {
        setConfirmTrip(res.data.confirmTripResult)
        setPendingTrip(res.data.pendingTripResult)

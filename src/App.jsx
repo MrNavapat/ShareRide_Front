@@ -12,8 +12,7 @@ function App() {
 
   return (
     <>
-      {/* <TestPages/> */}
-      {/* <HomePages /> */}
+    
   
       <Router />
       <ToastContainer

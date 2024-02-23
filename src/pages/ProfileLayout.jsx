@@ -1,5 +1,5 @@
 import React from "react";
-import HeroPic from "../../asset/forPage/Hero2.jpg";
+import HeroPic from "../../asset/forPage/Hero3.jpg";
 import Modal from "../Component/Modal";
 import { useState} from "react";
 import TripContainer from "../Component/TripContainer";
@@ -36,9 +36,9 @@ function ProfileLayout() {
   }
       
   const handleLogout = () => {
-    alert("log out is clicked")
+    // alert("log out is clicked")
         setAuthUser(null);
-    clearToken();
+         clearToken();
   };
 
  
@@ -46,24 +46,24 @@ function ProfileLayout() {
     <>
       <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative bg-red-400">
         <img src={HeroPic} />
-        <div className="absolute top-20 start-0 left-28 text-white text-4xl hover:font-bold ">
+        <div className="absolute top-20 start-12 left-28 text-white text-4xl hover:font-bold ">
           Share Ride
         </div>
-     
-
+                
+        
         {authUser ? <div
-          className="btn glass opacity-60 absolute top-20  right-20  text-white  text-4xl font-semibold hover:font-bold delay-600">
-          {authUser.userName}
+          className="  absolute top-20  right-20  text-white  text-4xl font-bold ">
+          Welcome  {authUser.userName}
         </div> : null}
         
-        {authUser ? <button className="btn glass opacity-60 absolute top-20  right-60  text-white text-4xl font-semibold hover:font-bold "onClick={handleLogout} >
+        {authUser ? <button className="btn glass opacity-40 absolute top-36  right-20  text-white text-4xl font-bold hover:bg-none "onClick={handleLogout} >
           Logout
         </button> : null}
         
 
-        <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
+        <div className="absolute bottom-16 right-60 text-white w-96 flex-col">
           <ShareRideSlogan />
-          <button className="btn glass opacity-60 font-bold bg-white text-black rounded-full px-4 py-2 my-4 text-right hover:bg-none tex-white-400" onClick={handleCreateTrip}>
+          <button className="btn glass opacity-60 font-bold text-2xl bg-white text-black rounded-lg px-4 py-2 my-4 text-right  " onClick={handleCreateTrip}>
             Create Trip
           </button>
         </div>

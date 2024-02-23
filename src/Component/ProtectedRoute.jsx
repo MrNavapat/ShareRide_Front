@@ -6,7 +6,7 @@ import { Navigate } from "react-router-dom";
 export default function ProtectedRoute({children}) {
     const { authUser } = useAuth()
     
-    return authUser?children:<Navigate to ="/home"/>
+    return authUser?children:<Navigate to ="/"/>
 
 
 }

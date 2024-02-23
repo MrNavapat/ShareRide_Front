@@ -50,7 +50,7 @@ function HomePages() {
       <div className="max-w max-h-[32rem] overflow-hidden flex items-center relative ">
         <img src={HeroPic} />
 
-        <div className="absolute top-20 start-0 left-28 text-white text-4xl hover:font-bold ">
+        <div className="absolute top-20 start-12 left-28 text-white text-4xl hover:font-bold ">
           Share Ride
         </div>
     
@@ -67,9 +67,9 @@ function HomePages() {
 
   
 
-        <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
+        {/* <div className="absolute bottom-20 right-60 text-white w-96 flex-col">
               <ShareRideSlogan/>
-        </div>
+        </div> */}
       </div>
       
       <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="View Trip" page={9} mode="Display"  />            
