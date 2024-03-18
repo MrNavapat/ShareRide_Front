@@ -72,7 +72,7 @@ function HomePages() {
         </div> */}
       </div>
       
-      <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="View Trip" page={9} mode="Display"  />            
+      <TripDisplay trip={displayTrip} title="Upcoming trip for travel " buttonMessage="Pls login" page={9} mode="Display"  />            
 
       {registerStatus ? (
               <Modal title="Register" onClose={closeRegister} width={32} >

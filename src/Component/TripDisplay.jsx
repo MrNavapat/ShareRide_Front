@@ -54,13 +54,23 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
       navigate(`/tripinformation/${id}`)
     }
   }
+
+  const handleClickView = async (id) => {
+   
+      navigate(`/tripinformation/${id}`)
+  }
+
+
+  let maxPage = Math.ceil(trip.length / page)
+  if (maxPage==0) { maxPage = 1 }
+
     return (
     <>
       <div className="flex justify-between mx-auto w-5/6 p-10">
         <div className="text-xl font-bold">{title}</div>
         <div className="join bg-green-400">
             <button className="join-item btn" onClick={handleClickBack}>{`<<`}</button>        
-                  <button className="join-item btn">Page {currentPage + 1}/ {Math.ceil(trip.length / page)}</button>
+                  <button className="join-item btn">Page {currentPage + 1}/ {maxPage}</button>
             <button className="join-item btn" onClick={handleClickForward}>{`>>`}</button>      
        
         </div>
@@ -77,12 +87,13 @@ export default function TripDisplay({ trip, title,buttonMessage ,page,mode}) {
                 startLoc={el.startLoc}
                 endLoc={el.endLoc}
                 startDate={dayjs(el.startDate).format("DD-MMM-YYYY")}
-                onClick={e=>{handleClick(el.id)}}  
+                onClick={e => { handleClick(el.id) }}  
+              onClickView={e=>{handleClickView(el.id)}}
               />
             ))
           : <TripCard
           src={initialSrc}
-          buttonMessage="No any trip relates"
+          buttonMessage="No related trip"
           startLoc=""
           endLoc=""
           startDate=""

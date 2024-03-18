@@ -71,12 +71,7 @@ export default function RegisterContainer({ onClose }) {
               onChange={handleChange}
               errorMessage={error?.birthday}
             ></Input>
-            {/* <Input
-              placeholder="Sex"
-              value={input?.sex}
-              name="sex"
-              onChange={handleChange}
-            ></Input> */}
+           
             <select name="sex" className="h-10 mt-8 rounded-lg" onChange={handleChange}>
               <option value="Male" selected>Male</option>
               <option value="Female">Female</option>
@@ -92,14 +87,8 @@ export default function RegisterContainer({ onClose }) {
               onChange={handleChange}
               errorMessage={error?.occupation}
             ></Input>
-            
-            {/* <Input
-              placeholder="UserType"
-              value={input?.userType}
-              name="userType"
-              onChange={handleChange}
-            ></Input> */}
-
+           
+         
             <select name="userType" className="h-10 mt-8 rounded-lg" onChange={handleChange}>
               <option value="DRIVER_TRAVELLER" >DRIVER_TRAVELLER</option>
               <option value="TRAVELLER" selected>TRAVELLER</option>

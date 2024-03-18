@@ -15,24 +15,28 @@ export default function LoginContainer({onClose}) {
         setInput({...input,[e.target.name]:e.target.value})   
     }
 
-  const handleSubmitForm = (e) => {
+  const handleSubmitForm = async (e) => {
       // alert("Handle Submit Form")
-      try {   
-            e.preventDefault();
-            alert("login ")
-            const errorValidate = validateLogin(input);
-            console.log(errorValidate)
-            if (Object.keys(errorValidate).length > 0) {
-              
-              setError(errorValidate);
-            } else {
-              login(input);
-              onClose();
-            }
-        } catch (err) {
-            console.log(err);
-        }
+    try {
+      e.preventDefault();
+      const errorValidate = validateLogin(input);
+      console.log(errorValidate)
+      if (Object.keys(errorValidate).length > 0) {
+        setError(errorValidate);
+      } else {
+        await login(input);
+        onClose();
+      }
+    } catch (err) {
+      console.log(err.response.data.message)
+      if (err.response?.data.message === 'no such username') {
+        setError({ userName: 'Invalid username' })
+      } else if (err.response?.data.message === 'wrong password') {
+        setError({ password: 'wrong password' })
+      }
     }
+  }
+    
 
      
   return (

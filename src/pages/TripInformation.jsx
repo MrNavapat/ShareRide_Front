@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"
 import dayjs from "dayjs"
 import Input from "../Component/Input"
 import { useNavigate } from "react-router-dom";
+import useAuth from '../hooks/user-auth'
 
 export default function TripInformation() {
 
@@ -14,6 +15,12 @@ export default function TripInformation() {
   const [newTripConfirmation,setNewTripConfirmation]=useState({tripConfirmation:"CONFIRMED"})
   const [errorTripInfo, setErrorTripInfo] = useState([])
   const [forRefresh, setForRefresh] = useState(true)
+  
+  const { authUser } = useAuth()
+  console.log(authUser.id)
+  console.log(inputTripInfo.requestorId)
+  const checkOwner=+authUser.id==+inputTripInfo.requestorId
+  console.log(checkOwner)
 
   const navigate = useNavigate(); 
   
@@ -133,20 +140,20 @@ export default function TripInformation() {
         <div className=' flex flex-col justify-center ' >
           <div className="flex flex-col  items-center ">
             <div style={{ height: `680px` }} className="">
-              <table className="table">
-              <caption class="caption-top text-4xl font-extrabold">
+              <table className="table ">
+              <caption className="caption-top text-4xl font-extrabold">
               Trip Member list
                 </caption>
                 
               <thead>
                 <tr >
-                  <th className="text-xl font-bold h-20">First Name</th>
-                  <th className="text-xl font-bold h-20">Last Name</th>
-                  <th className="text-xl font-bold h-20">User Name</th>
-                  <th className="text-xl font-bold h-20">Trip Position</th>
-                  <th className="text-xl font-bold h-20">Current Status</th>
-                  <th className="text-xl font-bold h-20">New Status</th>
-                  <th className="text-xl font-bold h-20"> Action</th>
+                  <th className="text-xl font-bold h-20 bg-purple-300">First Name</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300">Last Name</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300">User Name</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300">Trip Position</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300">Current Status</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300">New Status</th>
+                  <th className="text-xl font-bold h-20  bg-purple-300"> Action</th>
                  </tr>
               </thead>
           
@@ -166,7 +173,10 @@ export default function TripInformation() {
                               <option >REJECTED</option>
                        </select></td>
                     <td>
-                      <button type="button" className="bg-gray-200 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
+                      {checkOwner?
+                        <button button type="button" className="bg-gray-200 w-32 font-bold rounded-md text-lg" onClick={e => { handleUpdateTripMember(el.tripMemberId) }}>Update </button>
+                    :null}
+
                     </td>
 
                   </tr>
@@ -178,7 +188,11 @@ export default function TripInformation() {
               </div>
           </div>
           <div className="flex flex-row justify-end ">
-            <button className="bg-gray-300 mr-2 w-32 py-2 px-2 rounded-lg text-xl font-bold " onClick={handleUpdateTripInfo}>Update</button>
+            {checkOwner ?
+              <button className="bg-gray-300 mr-2 w-32 py-2 px-2 rounded-lg text-xl font-bold " onClick={handleUpdateTripInfo}>Update</button> :
+              null
+            }
+            
             <button className="bg-gray-300 mr-4 w-60 py-2 px-2 rounded-lg text-xl font-bold " onClick={()=>navigate(`/logindone`)}>Back to your page</button>
 
           </div>
